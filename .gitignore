@@ -1,0 +1,3 @@
+.env
+/config/firebase
+/node_modules
