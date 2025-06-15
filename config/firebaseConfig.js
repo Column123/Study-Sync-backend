@@ -11,5 +11,6 @@ firebaseAdmin.initializeApp({
 const db = firebaseAdmin.firestore();
 const User = db.collection("users");
 const Question = db.collection("questions");
+const LikeRef = db.collection("like_iser");
 
-export { User, Question };
+export { User, Question, LikeRef };

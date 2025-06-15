@@ -1,4 +1,4 @@
-import { User, Question } from '../../config/firebaseConfig.js';
+import { User, Question, LikeRef } from '../../config/firebaseConfig.js';
 import QuestionModel from '../../models/QuestionModel.js';
 import callGemini from '../../utils/AI/gemini.js';
 import callCohere from '../../utils/AI/cohere.js';
@@ -119,7 +119,9 @@ const likeAnswer = async (req, res) => {
 
         const questionRef = Question.doc(questionId);
         const answerRef = questionRef.collection("answers").doc(answerId);
-        const likeRef = answerRef.collection("liked_users").doc(req.user.id);
+        // const likeRef = answerRef.collection("liked_users").doc(req.user.id);
+        const likeRef = LikeRef.doc(questionId);
+        const LikedUserRef = await likeRef
 
         const [questionSnapshot, answerSnapshot] = await Promise.all([
             questionRef.get(),
