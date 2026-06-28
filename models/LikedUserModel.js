@@ -1,5 +1,4 @@
-const LikedUserModel = (user_id) =>({
-    user_id,
+const LikedUserModel = () =>({
     likedAt: new Date(),
 })
 

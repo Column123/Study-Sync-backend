@@ -1,6 +1,8 @@
 
-const QuestionModel = (question, user_ref, createdBy) => ({
+const QuestionModel = (title,question,category, user_ref, createdBy) => ({
+    title,
     question,
+    category,
     user_ref,
     response:0,
     createdBy,

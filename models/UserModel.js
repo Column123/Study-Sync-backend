@@ -4,8 +4,8 @@ const UserModel = (name, username, email, password) => ({
     username,
     email,
     password,
-    refreshToken:"",
-    createdAt: new Date(),
+    refreshToken:null,
+    createdAt: new Date().toISOString(),
 })
 
 export default UserModel
