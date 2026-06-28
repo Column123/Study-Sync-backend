@@ -1,4 +1,13 @@
-# Study Backend API
+# Study Sync - Backend API
+
+![Node.js](https://img.shields.io/badge/Node.js-20+-339933?logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-5.x-000000?logo=express&logoColor=white)
+![Firestore](https://img.shields.io/badge/Firestore-Firebase-FFCA28?logo=firebase&logoColor=black)
+![JWT Auth](https://img.shields.io/badge/Auth-JWT-000000?logo=jsonwebtokens&logoColor=white)
+![Gemini](https://img.shields.io/badge/AI-Gemini-4285F4)
+![Cohere](https://img.shields.io/badge/AI-Cohere-1F2430)
+![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)
+
 
 > A structured Node.js backend for authentication, AI-powered Q&A, and adaptive study roadmap management.
 
@@ -68,8 +77,6 @@ Core stack by responsibility:
 ```text
 backend/
 	config/
-		firebase/
-			firebaseAdminConfig.json
 		firebaseConfig.js
 	controllers/
 		accounts/
@@ -141,7 +148,7 @@ Authentication token lifecycle:
 ---
 
 ## 7. Database Structure (Firestore)
-Collections and shape inferred from model/controller code:
+The backend uses the following Firestore collections:
 
 ### `users` (identity and authentication core)
 Document fields:
@@ -303,7 +310,7 @@ Base URL: `http://localhost:<PORT>`
 ---
 
 ## 10. Environment Variables
-Defined/used in code:
+Required environment variables:
 - `PORT` (optional, defaults to `5000`)
 - `ACCESS_TOKEN_SECRET`
 - `REFRESH_TOKEN_SECRET`
@@ -353,45 +360,39 @@ Server starts on `http://localhost:5000` unless `PORT` is set.
 
 ### Roadmap AI (`POST /roadmap/create`)
 - Gemini (`utils/RoadmapAI/roadmapGenerator.js`) generates a JSON array roadmap schema.
-- Enforces DAG-like dependencies via prompt instructions.
+- Generates a structured learning roadmap with prerequisite relationships between topics.
 - Handles 503 and 429 API conditions with explicit custom errors.
 
 ---
 
 ## 14. Error Handling
-Current error-handling pattern:
+The backend handles errors using the following approach:
 - Input validation returns `400` with message in many controllers
 - Missing auth/token commonly returns `401` or `403`
 - Not found uses `404`
 - Some idempotent/no-content logout paths return `204`
 - Unhandled exceptions generally log to console and return `500`
 
-There is no centralized global error middleware; handling is per-controller.
+Error handling is currently implemented within individual controllers. A centralized error-handling middleware is planned for future improvements. 
 
----
+
 
 ## 15. Future Improvements
-Based strictly on observed code:
-- Move Firebase service account secret out of repo and load via secure env/secret manager
-- Add centralized error middleware + uniform error response schema
-- Harden cookie settings (`secure: true`, consistent `sameSite`) for production
-- Add request validation layer (e.g., Zod/Joi) on all endpoints
-- Add tests (currently no tests implemented)
-- Fix naming/casing consistency (`RoadMapModel` import vs `RoadmapModel.js`) for cross-platform safety
-- Resolve answer-like status inconsistency in `getAnswers` (`liked_users` read path differs from `likes` write path)
-- Add pagination for questions and answers
-- Add rate limiting and auth brute-force protection
+Planned improvements for future releases:
+- Email verification
+- Password reset
+- Notifications
+- WebSockets
+- API versioning
+- Unit and integration tests
+- Docker support
+- CI/CD pipeline
 
----
 
 ## 16. Contributing
-No explicit contribution guidelines are present in this repository.
+This project is currently maintained by the author. Suggestions, bug reports, and feature requests are welcome through GitHub Issues. If you'd like to contribute, feel free to fork the repository and submit a Pull Request.
 
-Suggested basic workflow:
-1. Fork/branch from main codebase.
-2. Make focused changes.
-3. Add/update tests where applicable.
-4. Open a pull request with clear description.
 
----
+## License
 
+This project is licensed under the MIT License. See the LICENSE file for details.
